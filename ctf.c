@@ -37,10 +37,10 @@ int readAndCheck(char *toCheck)
     return 1;
 }
 
-int check2(char* input, char *bytes)
+int check2(char *input, char *bytes)
 {
     char xor [] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xca, 0xfe, 0x13, 0x37, 0xca, 0xfe, 0x13, 0x37, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a};
-    char add [] = {0x0a, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x37, 0x13, 0x37, 0x13, 0xfe, 0xca, 0x37, 0x13, 0x37, 0x13, 0xfe, 0xca, 0xef, 0xbe, 0xad, 0xde};
+    char add[] = {0x0a, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x37, 0x13, 0x37, 0x13, 0xfe, 0xca, 0x37, 0x13, 0x37, 0x13, 0xfe, 0xca, 0xef, 0xbe, 0xad, 0xde};
     for (int i = 0; i < strlen(bytes); i++)
     {
         char c = input[i];
@@ -60,12 +60,12 @@ int die()
     return 1;
 }
 
-int secretPath(char* input)
+int secretPath(char *input)
 {
     char flag[1000];
     strcat(flag, "r2con{");
     strncat(flag, input, 30);
-    flag[strlen(flag)-1]=0;
+    flag[strlen(flag) - 1] = 0;
     if (!check2(input, "\x97\xcd\xd2\xd6\xc0\xc7\xcd\x84\xec\x91\xad\x62\xf5\xf1\x65\x22\x58\x82\xb1\x37\x61\x3e\x5d\x2b\x14\x4c")) // Sit down next to my friend
     {
         return 2;
@@ -73,7 +73,7 @@ int secretPath(char* input)
     puts("\nYour friend hands you a note. What do you do?");
     input = read();
     strncat(flag, input, 30);
-    flag[strlen(flag)-1]=0;
+    flag[strlen(flag) - 1] = 0;
     if (!check2(input, "\x9c\xcd\xe1\x8e\xb0\x92\xd7\x91\xc0\x9e\xb2")) // Light match
     {
         return die();
@@ -82,8 +82,8 @@ int secretPath(char* input)
     puts("\nThe note says: \"Don't leave me here\". Do you leave your friend or stay?");
     input = read();
     strncat(flag, input, 30);
-    flag[strlen(flag)-1]=0;
-    if (!check2(input, "\x97\xe2\xe7\x9d"))  // Stay
+    flag[strlen(flag) - 1] = 0;
+    if (!check2(input, "\x97\xe2\xe7\x9d")) // Stay
     {
         free(input);
         return die();
@@ -104,7 +104,8 @@ int main()
     puts("\nYou're trapped in a dungeon with your friend. You see a barrel. What do you do?");
     char *input = read();
     int ret = secretPath(input);
-    if (ret != 2) {
+    if (ret != 2)
+    {
         return ret;
     }
     if (strncmp(input, "Move barrel", strlen("Move barrel")) != 0)
